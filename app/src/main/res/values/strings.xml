@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">FlexTimer</string>
+    <string name="flextimer">FlexTimer</string>
+    <string name="stopwatch">Stopwatch</string>
+    <string name="timer">Timer</string>
+    <string name="chess_clock">Chess clock</string>
+    <string name="cube_timer">Cube timer</string>
+    <string name="interval_training_timer">Interval training timer</string>
+    <string name="rest_period_timer">Rest-period timer</string>
+    <string name="todo">TODO</string>
 </resources>
