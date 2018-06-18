@@ -8,4 +8,8 @@
     <string name="interval_training_timer">Interval training timer</string>
     <string name="rest_period_timer">Rest-period timer</string>
     <string name="todo">TODO</string>
+
+    <string name="title_activity_timer">TimerActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
