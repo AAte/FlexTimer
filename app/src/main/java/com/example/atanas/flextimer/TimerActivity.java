@@ -169,7 +169,7 @@ public class TimerActivity extends AppCompatActivity {
         updateCountDownText();
         updateWatchInterface();
         setArrowsVisible();
-        
+
     }
 
     private void changeStartTime() {
