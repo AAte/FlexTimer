@@ -10,21 +10,6 @@
 
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/stopwatch"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnChessTimer"
-        app:layout_constraintEnd_toEndOf="@+id/btnStopwatch"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="@+id/btnStopwatch" />
-
-    <TextView
         android:id="@+id/tvStopwatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.012" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/btnChessTimer"
@@ -58,6 +43,7 @@
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvStopwatch"
+        app:layout_constraintVertical_bias="0.48000002"
         app:srcCompat="@drawable/chess" />
 
     <ImageButton
@@ -77,6 +63,7 @@
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvStopwatch"
+        app:layout_constraintVertical_bias="0.48000002"
         app:srcCompat="@drawable/rubik" />
 
     <ImageButton
@@ -95,27 +82,27 @@
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvStopwatch"
-        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintVertical_bias="0.95"
         app:srcCompat="@drawable/running" />
 
     <ImageButton
-        android:id="@+id/btnRestTimer"
+        android:id="@+id/btnFocusTimer"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@android:drawable/screen_background_light_transparent"
+        android:background="@android:color/transparent"
         android:contentDescription="@android:string/ok"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvStopwatch"
-        app:layout_constraintVertical_bias="0.9"
-        app:srcCompat="@drawable/weightlifting" />
+        app:layout_constraintVertical_bias="0.95"
+        app:srcCompat="@drawable/focus" />
 
     <ImageButton
         android:id="@+id/btnStopwatch"
@@ -133,7 +120,7 @@
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvStopwatch"
-        app:layout_constraintVertical_bias="0.100000024"
+        app:layout_constraintVertical_bias="0.01999998"
         app:srcCompat="@drawable/stopwatch" />
 
     <ImageButton
@@ -145,15 +132,15 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:drawable/screen_background_light_transparent"
+        android:contentDescription="@string/todo"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_bias="0.902"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvStopwatch"
-        app:layout_constraintVertical_bias="0.100000024"
-        app:srcCompat="@drawable/timer"
-        android:contentDescription="@string/todo" />
+        app:layout_constraintVertical_bias="0.017"
+        app:srcCompat="@drawable/timer" />
 
     <TextView
         android:id="@+id/tVStopwatch"
@@ -162,13 +149,16 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/stopwatch"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/btnChessTimer"
         app:layout_constraintEnd_toEndOf="@+id/btnStopwatch"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="@+id/btnStopwatch" />
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="@+id/btnStopwatch"
+        app:layout_constraintTop_toBottomOf="@+id/btnStopwatch"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tVTimer"
@@ -177,13 +167,17 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/timer"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/btnRubikTimer"
         app:layout_constraintEnd_toEndOf="@+id/btnTimer"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="@+id/btnTimer" />
+        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintStart_toStartOf="@+id/btnTimer"
+        app:layout_constraintTop_toBottomOf="@+id/btnTimer"
+        app:layout_constraintVertical_bias="0.029" />
+
     <TextView
         android:id="@+id/tVChess"
         android:layout_width="wrap_content"
@@ -191,27 +185,34 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/chess_clock"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/btnIntervalTimer"
         app:layout_constraintEnd_toEndOf="@+id/btnChessTimer"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="@+id/btnChessTimer" />
+        app:layout_constraintHorizontal_bias="0.351"
+        app:layout_constraintStart_toStartOf="@+id/btnChessTimer"
+        app:layout_constraintTop_toBottomOf="@+id/btnChessTimer"
+        app:layout_constraintVertical_bias="0.131" />
+
     <TextView
         android:id="@+id/tVRubik"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/cube_timer"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnRestTimer"
+        app:layout_constraintBottom_toTopOf="@+id/btnFocusTimer"
         app:layout_constraintEnd_toEndOf="@+id/btnRubikTimer"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="@+id/btnRubikTimer" />
+        app:layout_constraintHorizontal_bias="0.574"
+        app:layout_constraintStart_toStartOf="@+id/btnRubikTimer"
+        app:layout_constraintTop_toBottomOf="@+id/btnRubikTimer"
+        app:layout_constraintVertical_bias="0.102" />
 
     <TextView
         android:id="@+id/tVSprint"
@@ -231,7 +232,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnIntervalTimer" />
 
     <TextView
-        android:id="@+id/tVLifting"
+        android:id="@+id/tVFocus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -242,9 +243,9 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnRestTimer"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="@+id/btnRestTimer"
-        app:layout_constraintTop_toBottomOf="@+id/btnRestTimer" />
+        app:layout_constraintEnd_toEndOf="@+id/btnFocusTimer"
+        app:layout_constraintStart_toStartOf="@+id/btnFocusTimer"
+        app:layout_constraintTop_toBottomOf="@+id/btnFocusTimer"
+        tools:text="Focus timer" />
 
 </android.support.constraint.ConstraintLayout>

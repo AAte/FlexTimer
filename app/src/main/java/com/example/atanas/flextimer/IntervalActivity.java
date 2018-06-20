@@ -201,7 +201,7 @@ public class IntervalActivity extends AppCompatActivity {
         } else {
             mButtonStartPause.setText("Start");
 
-            if (mTimeLeftInMillis < 1000) {
+            if (mTimeLeftInMillis < 10) {
                 mButtonStartPause.setVisibility(View.INVISIBLE);
             } else {
                 mButtonStartPause.setVisibility(View.VISIBLE);

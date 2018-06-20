@@ -1,18 +1,18 @@
 package com.example.atanas.flextimer;
 
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import java.util.Locale;
-import android.content.SharedPreferences;
 
-public class TimerActivity extends AppCompatActivity {
+import java.util.Locale;
+
+public class FocusActivity extends AppCompatActivity {
 
 
     private long mStartTimeInMillis;
@@ -21,12 +21,13 @@ public class TimerActivity extends AppCompatActivity {
     private Button mButtonStartPause;
     private Button mButtonReset;
 
-    private ImageButton btnHoursUp;
-    private ImageButton btnHoursDown;
-    private ImageButton btnMinutesUp;
-    private ImageButton btnMinutesDown;
-    private ImageButton btnSecondsUp;
-    private ImageButton btnSecondsDown;
+    private int numberIntervals;
+    private int restTimeSeconds;
+    private int intervalTimeSeconds;
+    private boolean restIntervalSwitcher;
+    private boolean intervalPreparation;
+    private TextView tvIntervalStatus;
+
 
     private int hours;
     private int minutes;
@@ -40,22 +41,27 @@ public class TimerActivity extends AppCompatActivity {
     private long mEndTime;
     private ProgressBar countdownProgress;
 
+    private MediaPlayer goSound;
+    private MediaPlayer restSound;
+    private MediaPlayer getReadySound;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timer);
-        mStartTimeInMillis = 60000;
-        mTimeLeftInMillis = mStartTimeInMillis;
+        setContentView(R.layout.activity_focus);
+        setUpIntervals();
+
         hours   = (int) (mTimeLeftInMillis / 1000) / 3600;
         minutes = (int) ((mTimeLeftInMillis / 1000) / 60) % 60;
         seconds = (int) (mTimeLeftInMillis / 1000) % 60;
 
-        btnHoursUp=findViewById(R.id.btnHoursUp);
-        btnHoursDown=findViewById(R.id.btnHoursDown);
-        btnMinutesUp=findViewById(R.id.btnMinutesUp);
-        btnMinutesDown=findViewById(R.id.btnMinutesDown);
-        btnSecondsUp=findViewById(R.id.btnSecondsUp);
-        btnSecondsDown=findViewById(R.id.btnSecondsDown);
+
+
+        goSound=MediaPlayer.create(this,R.raw.focusbeep);
+        restSound=MediaPlayer.create(this,R.raw.alarmrest);
+        getReadySound=MediaPlayer.create(this,R.raw.getready);
+
+        tvIntervalStatus = findViewById(R.id.tvIntervalStatus);
 
 
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
@@ -63,12 +69,14 @@ public class TimerActivity extends AppCompatActivity {
         mButtonStartPause = findViewById(R.id.button_start_pause);
         mButtonReset = findViewById(R.id.button_reset);
         countdownProgress=findViewById(R.id.progressBar);
+
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mTimerRunning) {
-                    pauseTimer();
+                    stopTimer();
                 } else {
+                    resetTimer();
                     startTimer();
                 }
             }
@@ -80,63 +88,25 @@ public class TimerActivity extends AppCompatActivity {
                 resetTimer();
             }
         });
-
-        btnHoursUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hours++;
-                changeStartTime();
-            }
-        });
-        btnHoursDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(hours>0){
-                    hours--;
-                }
-                changeStartTime();
-            }
-        });
-
-        btnMinutesUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                minutes++;
-                changeStartTime();
-            }
-        });
-
-        btnMinutesDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(minutes>0){
-                    minutes--;
-                }
-                changeStartTime();
-            }
-        });
-        btnSecondsUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                seconds++;
-                changeStartTime();
-            }
-        });
-
-        btnSecondsDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(seconds>0){
-                    seconds--;
-                }
-                changeStartTime();
-            }
-        });
         updateCountDownText();
     }
 
     private void startTimer() {
+        tvIntervalStatus.setVisibility(View.VISIBLE);
 
+
+        if(intervalPreparation){
+            tvIntervalStatus.setText("Get ready");
+            intervalPreparation=false;
+            getReadySound.start();
+        }
+        else if(restIntervalSwitcher){
+            tvIntervalStatus.setText("Rest");
+            restSound.start();
+        }else{
+            tvIntervalStatus.setText("Focus");
+            goSound.start();
+        }
         mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 10) {
             @Override
@@ -147,9 +117,28 @@ public class TimerActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                mTimerRunning = false;
-                updateWatchInterface();
-                countdownProgress.setProgress(0);
+                if(numberIntervals>0 && restIntervalSwitcher){
+                    mStartTimeInMillis=intervalTimeSeconds*1000;
+                    restIntervalSwitcher=false;
+                    softResetTimer();
+                    startTimer();
+
+                }else if(numberIntervals>0 && !restIntervalSwitcher){
+                    mStartTimeInMillis=restTimeSeconds*1000;
+                    restIntervalSwitcher=true;
+                    numberIntervals--;
+                    softResetTimer();
+                    startTimer();
+
+                } else{
+                    mTimerRunning = false;
+                    updateWatchInterface();
+                    countdownProgress.setProgress(0);
+                    setUpIntervals();
+                    tvIntervalStatus.setVisibility(View.INVISIBLE);
+
+                }
+
             }
         }.start();
 
@@ -158,34 +147,47 @@ public class TimerActivity extends AppCompatActivity {
 
     }
 
-    private void pauseTimer() {
+    private void stopTimer() {
         mCountDownTimer.cancel();
         mTimerRunning = false;
         updateWatchInterface();
+        mButtonStartPause.setVisibility(View.INVISIBLE);
+
+    }
+    private void resetTimer() {
+        softResetTimer();
+        setUpIntervals();
     }
 
-    private void resetTimer() {
+    private void softResetTimer() {
         mTimeLeftInMillis = mStartTimeInMillis;
         updateCountDownText();
         updateWatchInterface();
-        setArrowsVisible();
+        tvIntervalStatus.setVisibility(View.INVISIBLE);
 
     }
 
-    private void changeStartTime() {
-        mStartTimeInMillis=(hours*1000*3600)+(minutes*1000*60)+(seconds*1000);
+    private void setUpIntervals(){
+        numberIntervals=1;
+        restTimeSeconds=30;
+        intervalTimeSeconds=90;
+        restIntervalSwitcher=true;
+        intervalPreparation=true;
+        mStartTimeInMillis = 5000;
         mTimeLeftInMillis = mStartTimeInMillis;
-        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d",hours, minutes, seconds);
-        mTextViewCountDown.setText(timeLeftFormatted);
-        updateWatchInterface();
     }
 
     private void updateCountDownText() {
         hours   = (int) (mTimeLeftInMillis / 1000) / 3600;
         minutes = (int) ((mTimeLeftInMillis / 1000) / 60) % 60;
         seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+        String timeLeftFormatted;
+        if(hours>0){
+            timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d",hours, minutes, seconds);
+        }else{
+            timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        }
 
-        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d",hours, minutes, seconds);
         double percentage= (mTimeLeftInMillis/(double)mStartTimeInMillis)*10000;
         Log.d("Percentage","value: " + percentage);
         countdownProgress.setProgress((int)percentage);
@@ -195,12 +197,12 @@ public class TimerActivity extends AppCompatActivity {
     private void updateWatchInterface() {
         if (mTimerRunning) {
             mButtonReset.setVisibility(View.INVISIBLE);
-            mButtonStartPause.setText("Pause");
-            setArrowsInvisible();
+            mButtonStartPause.setText("Stop");
+
         } else {
             mButtonStartPause.setText("Start");
 
-            if (mTimeLeftInMillis < 10) {
+            if (mTimeLeftInMillis < 100) {
                 mButtonStartPause.setVisibility(View.INVISIBLE);
             } else {
                 mButtonStartPause.setVisibility(View.VISIBLE);
@@ -214,27 +216,9 @@ public class TimerActivity extends AppCompatActivity {
         }
     }
 
-    private void setArrowsVisible(){
-        mButtonStartPause.setVisibility(View.VISIBLE);
-        btnHoursUp.setVisibility(View.VISIBLE);
-        btnHoursDown.setVisibility(View.VISIBLE);
-        btnMinutesUp.setVisibility(View.VISIBLE);
-        btnMinutesDown.setVisibility(View.VISIBLE);
-        btnSecondsUp.setVisibility(View.VISIBLE);
-        btnSecondsDown.setVisibility(View.VISIBLE);
-    }
-    private  void setArrowsInvisible(){
-        mButtonReset.setVisibility(View.INVISIBLE);
-        btnHoursUp.setVisibility(View.INVISIBLE);
-        btnHoursDown.setVisibility(View.INVISIBLE);
-        btnMinutesUp.setVisibility(View.INVISIBLE);
-        btnMinutesDown.setVisibility(View.INVISIBLE);
-        btnSecondsUp.setVisibility(View.INVISIBLE);
-        btnSecondsDown.setVisibility(View.INVISIBLE);
-    }
 
 
-    @Override
+ /*   @Override
     protected void onStop() {
         super.onStop();
 
@@ -280,5 +264,5 @@ public class TimerActivity extends AppCompatActivity {
             }
         }
     }
-
+*/
 }
