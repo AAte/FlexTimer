@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".TimerActivity" />
-        <activity android:name=".StopwatchActivity"></activity>
+        <activity android:name=".StopwatchActivity" />
+        <activity android:name=".IntervalActivity" />
     </application>
 
 </manifest>

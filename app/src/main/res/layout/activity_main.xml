@@ -80,7 +80,7 @@
         app:srcCompat="@drawable/rubik" />
 
     <ImageButton
-        android:id="@+id/btnSprintTimer"
+        android:id="@+id/btnIntervalTimer"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginBottom="8dp"
@@ -99,7 +99,7 @@
         app:srcCompat="@drawable/running" />
 
     <ImageButton
-        android:id="@+id/btnLiftingTimer"
+        android:id="@+id/btnRestTimer"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginBottom="8dp"
@@ -194,7 +194,7 @@
         android:text="@string/chess_clock"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSprintTimer"
+        app:layout_constraintBottom_toTopOf="@+id/btnIntervalTimer"
         app:layout_constraintEnd_toEndOf="@+id/btnChessTimer"
         app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="@+id/btnChessTimer" />
@@ -208,7 +208,7 @@
         android:text="@string/cube_timer"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLiftingTimer"
+        app:layout_constraintBottom_toTopOf="@+id/btnRestTimer"
         app:layout_constraintEnd_toEndOf="@+id/btnRubikTimer"
         app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="@+id/btnRubikTimer" />
@@ -225,10 +225,10 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnSprintTimer"
+        app:layout_constraintEnd_toEndOf="@+id/btnIntervalTimer"
         app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="@+id/btnSprintTimer"
-        app:layout_constraintTop_toBottomOf="@+id/btnSprintTimer" />
+        app:layout_constraintStart_toStartOf="@+id/btnIntervalTimer"
+        app:layout_constraintTop_toBottomOf="@+id/btnIntervalTimer" />
 
     <TextView
         android:id="@+id/tVLifting"
@@ -242,9 +242,9 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnLiftingTimer"
+        app:layout_constraintEnd_toEndOf="@+id/btnRestTimer"
         app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="@+id/btnLiftingTimer"
-        app:layout_constraintTop_toBottomOf="@+id/btnLiftingTimer" />
+        app:layout_constraintStart_toStartOf="@+id/btnRestTimer"
+        app:layout_constraintTop_toBottomOf="@+id/btnRestTimer" />
 
 </android.support.constraint.ConstraintLayout>
