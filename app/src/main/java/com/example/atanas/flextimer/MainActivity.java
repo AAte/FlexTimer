@@ -11,6 +11,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btnStopWatch;
     private ImageButton btnInterval;
     private ImageButton btnFocus;
+    private ImageButton btnCube;
+    private ImageButton btnChess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         btnStopWatch=findViewById(R.id.btnStopwatch);
         btnInterval=findViewById(R.id.btnIntervalTimer);
         btnFocus=findViewById(R.id.btnFocusTimer);
+        btnCube=findViewById(R.id.btnRubikTimer);
+        btnChess=findViewById(R.id.btnChessTimer);
 
         btnStopWatch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +52,18 @@ public class MainActivity extends AppCompatActivity {
                 openFocusActivity();
             }
         });
+        btnCube.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCubeActivity();
+            }
+        });
+        btnChess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openChessActivity();
+            }
+        });
     }
 
 
@@ -66,6 +82,16 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openFocusActivity(){
         Intent i=new Intent(this, FocusActivity.class);
+        startActivity(i);
+    }
+
+    public void openCubeActivity(){
+        Intent i=new Intent(this, CubeActivity.class);
+        startActivity(i);
+    }
+
+    public void openChessActivity(){
+        Intent i=new Intent(this, ChessActivity.class);
         startActivity(i);
     }
 

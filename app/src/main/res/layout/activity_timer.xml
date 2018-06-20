@@ -98,7 +98,7 @@
         app:layout_constraintHorizontal_bias="0.459"
         app:layout_constraintStart_toStartOf="@+id/text_view_countdown"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.327" />
+        app:layout_constraintVertical_bias="0.315" />
 
     <ImageButton
         android:id="@+id/btnSecondsDown"

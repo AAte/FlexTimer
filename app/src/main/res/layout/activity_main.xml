@@ -29,8 +29,8 @@
     <ImageButton
         android:id="@+id/btnChessTimer"
         style="@android:style/Widget.Material.Light.ImageButton"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -49,8 +49,8 @@
     <ImageButton
         android:id="@+id/btnRubikTimer"
         style="@android:style/Widget.Material.ImageButton"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -68,8 +68,8 @@
 
     <ImageButton
         android:id="@+id/btnIntervalTimer"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -87,8 +87,8 @@
 
     <ImageButton
         android:id="@+id/btnFocusTimer"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -106,8 +106,8 @@
 
     <ImageButton
         android:id="@+id/btnStopwatch"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -125,8 +125,8 @@
 
     <ImageButton
         android:id="@+id/btnTimer"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -239,13 +239,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/rest_period_timer"
+        android:text="@string/focus_timer"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btnFocusTimer"
         app:layout_constraintStart_toStartOf="@+id/btnFocusTimer"
-        app:layout_constraintTop_toBottomOf="@+id/btnFocusTimer"
-        tools:text="Focus timer" />
+        app:layout_constraintTop_toBottomOf="@+id/btnFocusTimer" />
 
 </android.support.constraint.ConstraintLayout>

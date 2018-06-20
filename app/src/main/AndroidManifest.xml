@@ -19,7 +19,9 @@
         <activity android:name=".TimerActivity" />
         <activity android:name=".StopwatchActivity" />
         <activity android:name=".IntervalActivity" />
-        <activity android:name=".FocusActivity"></activity>
+        <activity android:name=".FocusActivity" />
+        <activity android:name=".CubeActivity" />
+        <activity android:name=".ChessActivity" />
     </application>
 
 </manifest>

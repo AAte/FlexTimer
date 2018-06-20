@@ -160,8 +160,8 @@ public class StopwatchActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
+        SharedPreferences prefStopwatch = getSharedPreferences("prefStopwatch", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefStopwatch.edit();
         TimeBuff += MillisecondTime;
         handler.removeCallbacks(runnable);
         editor.putLong("startTime", StartTime);
@@ -172,7 +172,7 @@ public class StopwatchActivity extends AppCompatActivity {
         editor.putBoolean("isRunning", stopwatchRunning);
         editor.putBoolean(("isPaused"),stopwatchPaused);
         editor.apply();
-        editor.commit();
+        
 
     }
 
@@ -180,14 +180,14 @@ public class StopwatchActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        stopwatchRunning=prefs.getBoolean("isRunning",false);
-        stopwatchPaused= prefs.getBoolean("isPaused",false);
-        StartTime = prefs.getLong("startTime",0);
-        TimeBuff=prefs.getLong("timeBuff",0);
-        MillisecondTime=prefs.getLong("millisecondTime",0);
-        UpdateTime=prefs.getLong("updateTime",0);
-        MilliSeconds=prefs.getInt("milliseconds",0);
+        SharedPreferences prefStopwatch = getSharedPreferences("prefStopwatch", MODE_PRIVATE);
+        stopwatchRunning=prefStopwatch.getBoolean("isRunning",false);
+        stopwatchPaused= prefStopwatch.getBoolean("isPaused",false);
+        StartTime = prefStopwatch.getLong("startTime",0);
+        TimeBuff=prefStopwatch.getLong("timeBuff",0);
+        MillisecondTime=prefStopwatch.getLong("millisecondTime",0);
+        UpdateTime=prefStopwatch.getLong("updateTime",0);
+        MilliSeconds=prefStopwatch.getInt("milliseconds",0);
 
 
         if(stopwatchRunning){

@@ -101,6 +101,7 @@ public class IntervalActivity extends AppCompatActivity {
         if(intervalPreparation){
             tvIntervalStatus.setText("Get ready");
             intervalPreparation=false;
+
             getReadySound.start();
         }
         else if(restIntervalSwitcher){

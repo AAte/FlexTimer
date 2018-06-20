@@ -50,12 +50,12 @@ public class TimerActivity extends AppCompatActivity {
         minutes = (int) ((mTimeLeftInMillis / 1000) / 60) % 60;
         seconds = (int) (mTimeLeftInMillis / 1000) % 60;
 
-        btnHoursUp=findViewById(R.id.btnHoursUp);
-        btnHoursDown=findViewById(R.id.btnHoursDown);
-        btnMinutesUp=findViewById(R.id.btnMinutesUp);
-        btnMinutesDown=findViewById(R.id.btnMinutesDown);
-        btnSecondsUp=findViewById(R.id.btnSecondsUp);
-        btnSecondsDown=findViewById(R.id.btnSecondsDown);
+        btnHoursUp      =   findViewById(R.id.btnHoursUp);
+        btnHoursDown    =   findViewById(R.id.btnHoursDown);
+        btnMinutesUp    =   findViewById(R.id.btnMinutesUp);
+        btnMinutesDown  =   findViewById(R.id.btnMinutesDown);
+        btnSecondsUp    =   findViewById(R.id.btnSecondsUp);
+        btnSecondsDown  =   findViewById(R.id.btnSecondsDown);
 
 
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
