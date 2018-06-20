@@ -25,7 +25,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.119" />
 
     <Button
         android:id="@+id/button"
@@ -107,14 +107,11 @@
     <ListView
         android:id="@+id/listview1"
         android:layout_width="407dp"
-        android:layout_height="499dp"
+        android:layout_height="392dp"
         android:layout_below="@+id/button4"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.965"
         tools:layout_editor_absoluteX="2dp" />
 
 </android.support.constraint.ConstraintLayout>
