@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TimerActivity" />
+        <activity android:name=".TimerActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".StopwatchActivity" />
         <activity android:name=".IntervalActivity" />
         <activity android:name=".FocusActivity" />
