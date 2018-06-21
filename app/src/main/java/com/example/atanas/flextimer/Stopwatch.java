@@ -30,9 +30,10 @@ public class Stopwatch {
 
     // elaspsed time in seconds
     public long getElapsedTimeSecs() {
-        if (running) {
-            return ((System.currentTimeMillis() - startTime) / 1000);
-        }
-        return ((stopTime - startTime) / 1000);
+    if (running) {
+        return ((System.currentTimeMillis() - startTime) / 1000);
     }
+    return ((stopTime - startTime) / 1000);
 }
+}
+

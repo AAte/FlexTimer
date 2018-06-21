@@ -34,6 +34,7 @@
     <string name="pref_default_display_name">John Smith</string>
 
     <!-- rCube timer -->
+
     <string name="default_cube_time">00:00:000</string>
     <string name="chooseScramble">choose Scramble type</string>
     <string name="listTimes">list solve times</string>
