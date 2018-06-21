@@ -14,6 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.concurrent.TimeUnit;
 
 public class CubeActivity extends AppCompatActivity {
@@ -33,6 +38,8 @@ public class CubeActivity extends AppCompatActivity {
     TextView tvScramble ;
     String currentScramble ;
     LinearLayout times ;
+    FileOutputStream fileOut ;
+    OutputStreamWriter output;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +58,12 @@ public class CubeActivity extends AppCompatActivity {
        tvScramble.setText(currentScramble);
 
        times = (LinearLayout) findViewById(R.id.scrollView);
-
+        try {
+            fileOut = openFileOutput("solveTimes.txt" , MODE_PRIVATE);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        output = new  OutputStreamWriter(fileOut);
 
     }
 
@@ -96,7 +108,7 @@ public class CubeActivity extends AppCompatActivity {
                     if(15-timer.getElapsedTimeSecs() <=0 ) {
                         timer.stop();mHandler.removeMessages(MSG_UPDATE_INSPECTION);
 
-                    };
+                    }
                     break; //though the timer is still running
                 case MSG_STOP_TIMER:
                     mHandler.removeMessages(MSG_UPDATE_TIMER); // no more updates.
@@ -119,11 +131,27 @@ public class CubeActivity extends AppCompatActivity {
         tvTimer.setText(time);
         currentScramble = Scramble.generateScramble();
         tvScramble.setText(currentScramble);
-
-
+        try {
+            FileOutputStream times = openFileOutput("solveTimes.txt" , MODE_PRIVATE);
+            OutputStreamWriter output = new  OutputStreamWriter(times);
+            output.write((int) timer.getElapsedTime());
+            output.write(" "+time + " " + currentScramble + "\n");
+            output.flush();
+            output.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
+
+
+
+
+
+
 
     public void toggleTimer(View v) {
         if(inspection){
@@ -144,6 +172,7 @@ public class CubeActivity extends AppCompatActivity {
         }
 
     }
+
 
 
     @Override
