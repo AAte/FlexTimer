@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import java.util.Locale;
 import android.content.SharedPreferences;
-
+import android.app.Activity;
 public class TimerActivity extends AppCompatActivity {
 
 

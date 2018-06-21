@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import android.app.Activity;
 import java.util.Locale;
 
 public class IntervalActivity extends AppCompatActivity {
