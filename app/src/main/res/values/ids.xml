@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="listTimes" type="id">listTimes</item>
+    <item name="chooseScramble" type="id">chooseScramble</item>
+    <item name="showGraph" type="id">showGraph</item>
+    <item name="settings" type="id">settings</item>
+</resources>

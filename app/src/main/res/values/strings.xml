@@ -13,7 +13,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="number_of_intervals">Number of intervals</string>
     <string name="interval_time">Interval time</string>
@@ -33,6 +33,14 @@
     <string name="pref_title_display_name">Display name</string>
     <string name="pref_default_display_name">John Smith</string>
 
+    <!-- rCube timer -->
+    <string name="default_cube_time">00:00:000</string>
+    <string name="chooseScramble">choose Scramble type</string>
+    <string name="listTimes">list solve times</string>
+    <string name="showSettings">Settings</string>
+    <string name="showGraph">Show graph</string>
+
+    <!-- rCube timer -->
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">
         <item>Always</item>

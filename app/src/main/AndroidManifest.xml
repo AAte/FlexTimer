@@ -21,7 +21,8 @@
         <activity android:name=".StopwatchActivity" />
         <activity android:name=".IntervalActivity" />
         <activity android:name=".FocusActivity" />
-        <activity android:name=".CubeActivity" />
+        <activity android:name=".CubeActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
         <activity android:name=".ChessActivity" />
     </application>
 
