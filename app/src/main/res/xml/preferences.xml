@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:summary="Interval timer settings"
+        android:title="Intervaltimer" >
+        <EditTextPreference
+            android:defaultValue="30"
+            android:digits="0123456789"
+            android:inputType="number"
+            android:key="interval_length"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="Choose a length for the interval"
+            android:title="Interval length" />
+        <EditTextPreference
+            android:defaultValue="15"
+            android:digits="0123456789"
+            android:inputType="number"
+            android:key="interval_rest_length"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Rest length"
+            android:summary="Choose a length for the rest time" />
+        <EditTextPreference
+            android:defaultValue="5"
+            android:digits="0123456789"
+            android:inputType="number"
+            android:key="interval_number"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Number of intervals"
+            android:summary="Choose the number of intervals" />
+
+        <SeekBarPreference
+            android:key="keyName"
+            android:title="Property Label"
+            android:summary="Summary."
+            android:max="50"
+            android:defaultValue="0" />
+    </PreferenceCategory>
+
+
+
+    <PreferenceCategory
+        android:summary="Focus timer settings"
+        android:title="Focustimer" >
+        <EditTextPreference
+            android:defaultValue="25"
+            android:digits="0123456789"
+            android:inputType="number"
+            android:key="focus_length"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="Choose a length for the focus timer"
+            android:title="Interval length" />
+        <EditTextPreference
+            android:defaultValue="5"
+            android:digits="0123456789"
+            android:inputType="number"
+            android:key="focus_rest_length"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Rest length"
+            android:summary="Choose a length for the rest time" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
