@@ -10,6 +10,9 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.ImageButton;
 
+import static android.app.PendingIntent.getActivity;
+//import android.support.v7.preference.PreferenceFragmentCompat;
+
 public class MainActivity extends AppCompatActivity {
     private ImageButton btnTimer;
     private ImageButton btnStopWatch;
@@ -81,8 +84,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.about_us:
+               // openTimerActivity();
                 return true;
         }
         return super.onOptionsItemSelected(item);
