@@ -1,5 +1,6 @@
 package com.example.atanas.flextimer;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.Message;
@@ -147,17 +148,25 @@ public class CubeActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu (Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.cubeactivity , menu);
-        return super.onCreateOptionsMenu(menu);
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.cubeactivity,menu);
+        return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return true ;
+        switch (item.getItemId()){
+            case R.id.settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.about_us:
+                // openTimerActivity();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
-
 
 }
 

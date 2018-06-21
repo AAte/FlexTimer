@@ -30,5 +30,12 @@
         app:showAsAction = "always"
         android:icon="@drawable/showchart"
         />
-
+    <item
+        android:id="@+id/about_us"
+        android:title="@string/aboutus"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings"
+        app:showAsAction="never" />
 </menu>

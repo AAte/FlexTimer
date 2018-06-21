@@ -38,7 +38,7 @@
         android:gravity="center"
         android:onClick="toggleTimer"
         android:text="@string/default_cube_time"
-        android:textSize="80dp"
+        android:textSize="60dp"
 
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"

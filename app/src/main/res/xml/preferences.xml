@@ -32,12 +32,7 @@
             android:title="Number of intervals"
             android:summary="Choose the number of intervals" />
 
-        <SeekBarPreference
-            android:key="keyName"
-            android:title="Property Label"
-            android:summary="Summary."
-            android:max="50"
-            android:defaultValue="0" />
+
     </PreferenceCategory>
 
 
