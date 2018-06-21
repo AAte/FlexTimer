@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@id/listTimes"
+        android:title="@string/listTimes"
+        android:orderInCategory="100"
+        app:showAsAction = "always"
+        android:icon="@drawable/timelist"
+        />
+    <item
+        android:id="@id/chooseScramble"
+        android:title="@string/chooseScramble"
+        android:orderInCategory="101"
+        app:showAsAction = "always"
+        android:icon="@drawable/scrambletype"
+        />
+    <item
+        android:id="@id/settings"
+        android:icon="@drawable/settings"
+        android:orderInCategory="103"
+        android:title="@string/showSettings"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@id/showGraph"
+        android:title="@string/showGraph"
+        android:orderInCategory="102"
+        app:showAsAction = "always"
+        android:icon="@drawable/showchart"
+        />
+
+</menu>
