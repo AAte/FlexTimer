@@ -222,6 +222,6 @@ public class StopwatchActivity extends AppCompatActivity {
 
     }
 
-  
+
 }
 
