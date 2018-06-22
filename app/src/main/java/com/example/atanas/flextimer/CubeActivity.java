@@ -1,6 +1,10 @@
 package com.example.atanas.flextimer;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
@@ -12,13 +16,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import org.w3c.dom.Text;
+
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 
 public class CubeActivity extends AppCompatActivity {
@@ -36,10 +48,13 @@ public class CubeActivity extends AppCompatActivity {
     boolean inspection;
     TextView tvTimer ;
     TextView tvScramble ;
+    TextView tvAvg12 ;
+    TextView tvAvg5 ;
+    TextView tvAvgAll ;
+    TextView tvBestAll ;
     String currentScramble ;
     LinearLayout times ;
-    FileOutputStream fileOut ;
-    OutputStreamWriter output;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,17 +68,16 @@ public class CubeActivity extends AppCompatActivity {
         timerRun    = false ;
         inspection  = true ;
         tvTimer = (TextView) findViewById(R.id.tvTime);
-       tvScramble = (TextView) findViewById(R.id.tvScramble);
+        tvScramble = (TextView) findViewById(R.id.tvScramble);
+        tvAvg5 = findViewById(R.id.tvAvg5);
+        tvAvg12 = findViewById(R.id.tvAvg12);
+        tvAvgAll = findViewById(R.id.tvAvgAll);
+        tvBestAll = findViewById(R.id.bestOfAll);
        currentScramble = Scramble.generateScramble();
        tvScramble.setText(currentScramble);
 
        times = (LinearLayout) findViewById(R.id.scrollView);
-        try {
-            fileOut = openFileOutput("solveTimes.txt" , MODE_PRIVATE);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        output = new  OutputStreamWriter(fileOut);
+
 
     }
 
@@ -132,10 +146,11 @@ public class CubeActivity extends AppCompatActivity {
         currentScramble = Scramble.generateScramble();
         tvScramble.setText(currentScramble);
         try {
-            FileOutputStream times = openFileOutput("solveTimes.txt" , MODE_PRIVATE);
-            OutputStreamWriter output = new  OutputStreamWriter(times);
-            output.write((int) timer.getElapsedTime());
-            output.write(" "+time + " " + currentScramble + "\n");
+
+            FileOutputStream  fileOut = openFileOutput("solveTimes.txt" ,MODE_APPEND);
+            OutputStreamWriter output = new  OutputStreamWriter(fileOut);
+
+            output.write(Integer.toString((int) timer.getElapsedTime())+" "+time + " " + currentScramble + "\n");
             output.flush();
             output.close();
         } catch (FileNotFoundException e) {
@@ -144,6 +159,50 @@ public class CubeActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        File file = getApplicationContext().getFileStreamPath("solveTimes.txt");
+        String lineFromFile ;
+
+        if(file.exists()) {
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(openFileInput("solveTimes.txt")));
+                int sum = 0;
+                int min = 1000000000;
+                int ctr = 1 ;
+                while ((lineFromFile = reader.readLine()) != null) {
+
+
+                    String [] strings = lineFromFile.split(" ");
+                   // Toast.makeText(getApplicationContext(), strings[0], Toast.LENGTH_SHORT).show();
+                    int c = Integer.parseInt(strings[0]);
+                    sum+=c ;
+                    if(c < min) {
+                        min = c;
+                        tvBestAll.setText(getString(R.string.bestAll)+"        " + getFormatMSM(c));
+                    }
+                    if (ctr == 5) {
+                        int avg = sum / 5;
+                        String dispSt = getString(R.string.avg5)+"      "+ getFormatMSM(avg);
+                        tvAvg5.setText(dispSt);
+
+                    }
+                    if (ctr == 12) {
+                        int avg = sum / 12;
+                        tvAvg12.setText(getString(R.string.avg12)+"     " + getFormatMSM(avg));
+
+                    }
+
+                    int avg = sum / ctr;
+                    tvAvgAll.setText(getString(R.string.avgAll) +"    "+ getFormatMSM(avg));
+
+
+
+
+                    ctr++;
+                }
+            } catch (IOException e) {
+
+            }
+        }
 
     }
 
@@ -161,7 +220,7 @@ public class CubeActivity extends AppCompatActivity {
 
             if (!timerRun) {
                 mHandler.sendEmptyMessage(MSG_START_TIMER);
-                timerRun = true;
+                timerRun = true ;
             } else {
                 mHandler.sendEmptyMessage(MSG_STOP_TIMER);
                 timerRun = false;
@@ -182,9 +241,52 @@ public class CubeActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
 
     }
-    @Override
+
+    public void openListActivity(){
+        Intent i=new Intent(this, ListTimesActivity.class);
+        startActivity(i);
+    }
+    public void openGraphActivity(){
+        Intent i=new Intent(this, graphActivity.class);
+        startActivity(i);
+    }
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+
+                    getApplicationContext().deleteFile("solveTimes.txt");
+
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    break;
+            }
+        }
+    };
     public boolean onOptionsItemSelected(MenuItem item) {
-        return true ;
+       switch(item.getItemId()){
+
+           case R.id.showGraph :
+               openGraphActivity() ;
+               return true ;
+
+           case R.id.listTimes :
+               openListActivity();
+           return true ;
+           case R.id.deleteTimes :
+
+               AlertDialog.Builder builder = new AlertDialog.Builder(CubeActivity.this);
+               builder.setMessage("Delete times?").setPositiveButton("Yes", dialogClickListener)
+                       .setNegativeButton("No", dialogClickListener).show();
+
+
+
+               return true ;
+       }
+       return true ;
     }
 
 

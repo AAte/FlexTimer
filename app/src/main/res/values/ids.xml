@@ -4,4 +4,5 @@
     <item name="chooseScramble" type="id">chooseScramble</item>
     <item name="showGraph" type="id">showGraph</item>
     <item name="settings" type="id">settings</item>
+    <item name="deleteTimes" type="id">deleteTimes</item>
 </resources>

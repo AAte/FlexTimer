@@ -16,14 +16,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TimerActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TimerActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".StopwatchActivity" />
         <activity android:name=".IntervalActivity" />
         <activity android:name=".FocusActivity" />
-        <activity android:name=".CubeActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+        <activity
+            android:name=".CubeActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity android:name=".ChessActivity" />
+        <activity
+            android:name=".ListTimesActivity"
+            android:label="@string/title_activity_list_times"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".graphActivity"></activity>
     </application>
 
 </manifest>

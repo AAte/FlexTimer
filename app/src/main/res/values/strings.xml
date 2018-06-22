@@ -38,6 +38,10 @@
     <string name="default_cube_time">00:00:000</string>
     <string name="chooseScramble">choose Scramble type</string>
     <string name="listTimes">list solve times</string>
+    <string name="avg12">avg 12:</string>
+    <string name="avg5">avg 5:  </string>
+    <string name="avgAll">avg all:</string>
+    <string name="bestAll">best:   </string>
     <string name="showSettings">Settings</string>
     <string name="showGraph">Show graph</string>
 
@@ -100,4 +104,5 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_list_times">ListTimesActivity</string>
 </resources>
