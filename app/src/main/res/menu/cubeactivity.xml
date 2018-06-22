@@ -3,26 +3,20 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@id/deleteTimes"
+        android:orderInCategory="100"
+        android:title="deleteTimes"
+        app:showAsAction="always"
+        android:icon="@drawable/vecdeletetime"/>
+    <item
         android:id="@id/listTimes"
         android:title="@string/listTimes"
-        android:orderInCategory="100"
+        android:orderInCategory="101"
         app:showAsAction = "always"
         android:icon="@drawable/timelist"
         />
-    <item
-        android:id="@id/chooseScramble"
-        android:title="@string/chooseScramble"
-        android:orderInCategory="101"
-        app:showAsAction = "always"
-        android:icon="@drawable/scrambletype"
-        />
-    <item
-        android:id="@id/settings"
-        android:icon="@drawable/settings"
-        android:orderInCategory="103"
-        android:title="@string/showSettings"
-        app:showAsAction="always"
-        />
+
+
     <item
         android:id="@id/showGraph"
         android:title="@string/showGraph"
@@ -30,12 +24,6 @@
         app:showAsAction = "always"
         android:icon="@drawable/showchart"
         />
-    <item
-        android:id="@+id/about_us"
-        android:title="@string/aboutus"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/settings"
-        android:title="@string/settings"
-        app:showAsAction="never" />
+
+
 </menu>

@@ -34,6 +34,12 @@
            android:name="android.support.PARENT_ACTIVITY"
            android:value=".MainActivity"/>
    </activity>
-</application>
+
+        <activity
+            android:name=".ListTimesActivity"
+            android:label="@string/title_activity_list_times"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".graphActivity"></activity>
+    </application>
 
 </manifest>
