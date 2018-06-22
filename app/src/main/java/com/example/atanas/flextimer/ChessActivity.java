@@ -1,7 +1,10 @@
 package com.example.atanas.flextimer;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 public class ChessActivity extends AppCompatActivity {
+    private int  sharedChessTime;
     private long mStartTimeInMillis1;
     private TextView mTextViewCountDown1;
     private Button mButtonStartPause1;
@@ -53,49 +57,46 @@ public class ChessActivity extends AppCompatActivity {
         setUpPlayer1();
         setUpPlayer();
     }
-
-    private void setUpPlayer1(){
-
-        setContentView(R.layout.activity_chess);
-        mStartTimeInMillis1 = 60000;
-        mTimeLeftInMillis1 = mStartTimeInMillis1;
-        hours1 = (int) (mTimeLeftInMillis1 / 1000) / 3600;
-        minutes1 = (int) ((mTimeLeftInMillis1 / 1000) / 60) % 60;
-        seconds1 = (int) (mTimeLeftInMillis1 / 1000) % 60;
-
-
-
-
-        mTextViewCountDown1 = findViewById(R.id.text_view_countdown1);
-
-        mButtonStartPause1 = findViewById(R.id.button_start_pause1);
-        mButtonReset1 = findViewById(R.id.button_reset);
-
-        mButtonStartPause1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mTimerRunning1) {
-                    pauseTimer1();
-                } else {
-                    startTimer1();
-                }
-            }
-        });
-
-        mButtonReset1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetTimer1();
-               //resetTimer1();
-            }
-        });
-
-        updateCountDownText1();
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu_chess,menu);
+        return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.reset_chess:
+                getSharedPref();
+                if(mTimerRunning){
+                    mCountDownTimer.cancel();
+                    mTimerRunning = false;
+                }
+                if(mTimerRunning1) {
+                    mCountDownTimer1.cancel();
+                    mTimerRunning1 = false;
+                }
+                mStartTimeInMillis= sharedChessTime*60000;
+                mStartTimeInMillis1= sharedChessTime*60000;
+                resetTimer();
+                resetTimer1();
+                return true;
+            case R.id.settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.about_us:
+                // openTimerActivity();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     private void setUpPlayer(){
 
-        mStartTimeInMillis = 60000;
+        mStartTimeInMillis= sharedChessTime*60000;
         mTimeLeftInMillis = mStartTimeInMillis;
         hours   = (int) (mTimeLeftInMillis / 1000) / 3600;
         minutes = (int) ((mTimeLeftInMillis / 1000) / 60) % 60;
@@ -120,19 +121,12 @@ public class ChessActivity extends AppCompatActivity {
             }
         });
 
-        mButtonReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetTimer();
-                resetTimer1();
-            }
-        });
 
         updateCountDownText();
 
     }
     private void startTimer() {
-
+        mButtonStartPause1.setVisibility(View.INVISIBLE);
         mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 10) {
             @Override
@@ -144,6 +138,7 @@ public class ChessActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 mTimerRunning = false;
+                mButtonStartPause1.setVisibility(View.VISIBLE);
                 updateWatchInterface();
             }
         }.start();
@@ -157,6 +152,10 @@ public class ChessActivity extends AppCompatActivity {
         mCountDownTimer.cancel();
         mTimerRunning = false;
         updateWatchInterface();
+        mButtonStartPause.setVisibility(View.INVISIBLE);
+        mButtonStartPause1.setVisibility(View.VISIBLE);
+        mButtonStartPause1.performClick();
+
     }
 
 
@@ -164,15 +163,9 @@ public class ChessActivity extends AppCompatActivity {
         mTimeLeftInMillis = mStartTimeInMillis;
         updateCountDownText();
         updateWatchInterface();
+        mButtonStartPause.setBackgroundColor( getResources().getColor(R.color.colorWhite));
     }
 
-    private void changeStartTime() {
-        mStartTimeInMillis=(hours*1000*3600)+(minutes*1000*60)+(seconds*1000);
-        mTimeLeftInMillis = mStartTimeInMillis;
-        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d",hours, minutes, seconds);
-        mTextViewCountDown.setText(timeLeftFormatted);
-        updateWatchInterface();
-    }
 
     private void updateCountDownText() {
         hours   = (int) (mTimeLeftInMillis / 1000) / 3600;
@@ -186,10 +179,12 @@ public class ChessActivity extends AppCompatActivity {
     private void updateWatchInterface() {
         if (mTimerRunning) {
             mButtonReset.setVisibility(View.INVISIBLE);
-            mButtonStartPause.setText("Pause");
+            mButtonStartPause.setText("");
+
+            mButtonStartPause.setBackgroundColor( getResources().getColor(R.color.chess_active));
 
         } else {
-            mButtonStartPause.setText("Start");
+            mButtonStartPause.setText("");
 
             if (mTimeLeftInMillis < 10) {
                 mButtonStartPause.setVisibility(View.INVISIBLE);
@@ -197,37 +192,51 @@ public class ChessActivity extends AppCompatActivity {
                 mButtonStartPause.setVisibility(View.VISIBLE);
             }
 
+
             if (mTimeLeftInMillis < mStartTimeInMillis) {
                 mButtonReset.setVisibility(View.VISIBLE);
             } else {
                 mButtonReset.setVisibility(View.INVISIBLE);
             }
+            mButtonReset.setVisibility(View.VISIBLE);
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.main_menu,menu);
-        return true;
-    }
+    private void setUpPlayer1(){
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.about_us:
-                // openTimerActivity();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+        setContentView(R.layout.activity_chess);
+        mStartTimeInMillis1= sharedChessTime*60000;
+        mTimeLeftInMillis1 = mStartTimeInMillis1;
+        hours1 = (int) (mTimeLeftInMillis1 / 1000) / 3600;
+        minutes1 = (int) ((mTimeLeftInMillis1 / 1000) / 60) % 60;
+        seconds1 = (int) (mTimeLeftInMillis1 / 1000) % 60;
+
+
+
+
+        mTextViewCountDown1 = findViewById(R.id.text_view_countdown1);
+
+        mButtonStartPause1 = findViewById(R.id.button_start_pause1);
+        mButtonReset1 = findViewById(R.id.button_reset);
+
+        mButtonStartPause1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mTimerRunning1) {
+                    pauseTimer1();
+                } else {
+                    startTimer1();
+                }
+            }
+        });
+
+
+        updateCountDownText1();
+
     }
 
     private void startTimer1() {
-
+        mButtonStartPause.setVisibility(View.INVISIBLE);
         mEndTime1 = System.currentTimeMillis() + mTimeLeftInMillis1;
         mCountDownTimer1 = new CountDownTimer(mTimeLeftInMillis1, 10) {
             @Override
@@ -238,6 +247,7 @@ public class ChessActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                mButtonStartPause.setVisibility(View.VISIBLE);
                 mTimerRunning1 = false;
                 updateWatchInterface1();
             }
@@ -249,9 +259,13 @@ public class ChessActivity extends AppCompatActivity {
     }
 
     private void pauseTimer1() {
+
         mCountDownTimer1.cancel();
         mTimerRunning1 = false;
         updateWatchInterface1();
+        mButtonStartPause.setVisibility(View.VISIBLE);
+        mButtonStartPause1.setVisibility(View.INVISIBLE);
+        mButtonStartPause.performClick();
     }
 
 
@@ -259,15 +273,9 @@ public class ChessActivity extends AppCompatActivity {
         mTimeLeftInMillis1 = mStartTimeInMillis1;
         updateCountDownText1();
         updateWatchInterface1();
+        mButtonStartPause1.setBackgroundColor( getResources().getColor(R.color.colorWhite));
     }
 
-    private void changeStartTime1() {
-        mStartTimeInMillis1 =(hours1 *1000*3600)+(minutes1 *1000*60)+(seconds1 *1000);
-        mTimeLeftInMillis1 = mStartTimeInMillis1;
-        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours1, minutes1, seconds1);
-        mTextViewCountDown1.setText(timeLeftFormatted);
-        updateWatchInterface1();
-    }
 
     private void updateCountDownText1() {
         hours1 = (int) (mTimeLeftInMillis1 / 1000) / 3600;
@@ -277,14 +285,32 @@ public class ChessActivity extends AppCompatActivity {
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours1, minutes1, seconds1);
         mTextViewCountDown1.setText(timeLeftFormatted);
     }
+    private void getSharedPref(){
+        SharedPreferences defaultprefs = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedChessTime=defaultprefs.getInt("chessTime",20);
 
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        getSharedPref();
+        if(!mTimerRunning&&!mTimerRunning1){
+            mStartTimeInMillis= sharedChessTime*60000;
+            mStartTimeInMillis1= sharedChessTime*60000;
+            resetTimer();
+            resetTimer1();
+        }
+
+    }
     private void updateWatchInterface1() {
         if (mTimerRunning1) {
             mButtonReset1.setVisibility(View.INVISIBLE);
-            mButtonStartPause1.setText("Pause");
+            mButtonStartPause1.setText("");
+            mButtonStartPause1.setBackgroundColor( getResources().getColor(R.color.chess_active));
+
 
         } else {
-            mButtonStartPause1.setText("Start");
+            mButtonStartPause1.setText("");
 
             if (mTimeLeftInMillis1 < 10) {
                 mButtonStartPause1.setVisibility(View.INVISIBLE);
@@ -297,6 +323,7 @@ public class ChessActivity extends AppCompatActivity {
             } else {
                 mButtonReset1.setVisibility(View.INVISIBLE);
             }
+
         }
     }
 

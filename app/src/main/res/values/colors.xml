@@ -5,6 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
+    <color name="gray_accent">#de5e5c5c</color>
     <color name="black_overlay">#66000000</color>
-    <color name="gray_accent">#66121111</color>
+    <color name="chess_active">#daf76300</color>
+    <color name="chess_inactive">#de5e5c5c</color>
 </resources>

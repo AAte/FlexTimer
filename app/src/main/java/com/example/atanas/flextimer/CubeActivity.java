@@ -73,10 +73,10 @@ public class CubeActivity extends AppCompatActivity {
         tvAvg12 = findViewById(R.id.tvAvg12);
         tvAvgAll = findViewById(R.id.tvAvgAll);
         tvBestAll = findViewById(R.id.bestOfAll);
-       currentScramble = Scramble.generateScramble();
-       tvScramble.setText(currentScramble);
+        currentScramble = Scramble.generateScramble();
+        tvScramble.setText(currentScramble);
 
-       times = (LinearLayout) findViewById(R.id.scrollView);
+        times = (LinearLayout) findViewById(R.id.scrollView);
 
 
     }
@@ -103,7 +103,8 @@ public class CubeActivity extends AppCompatActivity {
                     timer.start(); //start timer
                     mHandler.removeMessages(MSG_UPDATE_INSPECTION);
                     mHandler.sendEmptyMessage(MSG_UPDATE_TIMER);
-
+                    tvTimer.setBackgroundColor(Color.GREEN);
+                    tvScramble.setBackgroundColor(Color.GREEN);
                     break;
                 case MSG_START_INSPECTION:
                     timer.start();
@@ -137,7 +138,8 @@ public class CubeActivity extends AppCompatActivity {
     };
 
     public void onStopTimer(String time){
-
+        tvTimer.setBackgroundColor(Color.WHITE);
+        tvScramble.setBackgroundColor(Color.WHITE);
         TextView tv = new TextView(getApplicationContext()) ;
         tv.setText(time);
         tv.setTextSize(30);
@@ -172,8 +174,14 @@ public class CubeActivity extends AppCompatActivity {
 
 
                     String [] strings = lineFromFile.split(" ");
-                   // Toast.makeText(getApplicationContext(), strings[0], Toast.LENGTH_SHORT).show();
-                    int c = Integer.parseInt(strings[0]);
+                    //Toast.makeText(getApplicationContext(), strings[1], Toast.LENGTH_SHORT).show();
+                    int c=0;
+                    try{
+                        c = Integer.parseInt(strings[0].trim());
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+
                     sum+=c ;
                     if(c < min) {
                         min = c;
@@ -257,7 +265,7 @@ public class CubeActivity extends AppCompatActivity {
                 case DialogInterface.BUTTON_POSITIVE:
 
                     getApplicationContext().deleteFile("solveTimes.txt");
-
+                    times.removeAllViews();
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:
@@ -267,26 +275,26 @@ public class CubeActivity extends AppCompatActivity {
         }
     };
     public boolean onOptionsItemSelected(MenuItem item) {
-       switch(item.getItemId()){
+        switch(item.getItemId()){
 
-           case R.id.showGraph :
-               openGraphActivity() ;
-               return true ;
+            case R.id.showGraph :
+                openGraphActivity() ;
+                return true ;
 
-           case R.id.listTimes :
-               openListActivity();
-           return true ;
-           case R.id.deleteTimes :
+            case R.id.listTimes :
+                openListActivity();
+                return true ;
+            case R.id.deleteTimes :
 
-               AlertDialog.Builder builder = new AlertDialog.Builder(CubeActivity.this);
-               builder.setMessage("Delete times?").setPositiveButton("Yes", dialogClickListener)
-                       .setNegativeButton("No", dialogClickListener).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(CubeActivity.this);
+                builder.setMessage("Delete times?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
 
 
 
-               return true ;
-       }
-       return true ;
+                return true ;
+        }
+        return true ;
     }
 
 

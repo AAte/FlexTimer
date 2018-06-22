@@ -11,7 +11,7 @@
             android:key="interval_length"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:summary="Choose a length for the interval"
+            android:summary="Choose a length for the interval (seconds)"
             android:title="Interval length" />
         <EditTextPreference
             android:defaultValue="15"
@@ -21,7 +21,7 @@
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:title="Rest length"
-            android:summary="Choose a length for the rest time" />
+            android:summary="Choose a length for the rest time (seconds)" />
         <EditTextPreference
             android:defaultValue="5"
             android:digits="0123456789"
@@ -47,7 +47,7 @@
             android:key="focus_length"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:summary="Choose a length for the focus timer"
+            android:summary="Choose a length for the focus timer (minutes)"
             android:title="Interval length" />
         <EditTextPreference
             android:defaultValue="5"
@@ -57,7 +57,18 @@
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:title="Rest length"
-            android:summary="Choose a length for the rest time" />
+            android:summary="Choose a length for the rest time (minutes)" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:summary="Chess clock settings"
+        android:title="Chess clock" >
+        <SeekBarPreference
+            android:key="chessTime"
+            android:title="Chess game length"
+            android:summary="Choose a time for the chess players (minutes)"
+            android:max="150"
+            android:defaultValue="0" />
     </PreferenceCategory>
 
 </PreferenceScreen>
